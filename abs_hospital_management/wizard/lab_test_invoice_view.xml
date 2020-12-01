@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_lab_test_invoice_details_form" model="ir.ui.view">
+        <field name="name">lab.test.invoice.form</field>
+        <field name="model">lab.test.invoice</field>
+        <field name="arch" type="xml">
+        <form string="Lab Test Invoice">
+            <group>
+                <group>
+                    <field name="patient_id"/>
+                    <field name="test_type"/>
+                    <field name="charge"/>
+                </group>
+            </group>
+	    <footer>
+	        <button string='Create' name = 'create_invoices' type='object' class='btn-primary'/>
+                <button string='Cancel' class='btn-default' special="cancel"/>
+	    </footer>
+        </form>
+        </field>
+    </record>
+
+    <record id="open_view_lab_test_invoice_details_tree" model="ir.actions.act_window">
+        <field name="name">Lab Test Invoice</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">lab.test.invoice</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="view_lab_test_invoice_details_form" />
+    </record>
+
+</odoo>

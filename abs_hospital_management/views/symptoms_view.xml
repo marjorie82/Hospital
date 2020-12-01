@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Symptoms Tree View -->
+    <record id="view_symptoms_menu_tree" model="ir.ui.view">
+        <field name="name">patient.symptoms.tree</field>
+        <field name="model">patient.symptoms</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Symptoms Form View -->
+    <record id="view_symptoms_menu_form" model="ir.ui.view">
+        <field name="name">patient.symptoms.form</field>
+        <field name="model">patient.symptoms</field>
+        <field name="arch" type="xml">
+        <form string="Symptoms">
+        <sheet>
+            <div>
+                <group>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </group>
+            </div>
+        </sheet>
+        </form>
+        </field>
+    </record>
+
+    <record id="open_view_symptoms_menu_tree" model="ir.actions.act_window">
+        <field name="name">Symptoms</field>
+        <field name="res_model">patient.symptoms</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_sub_symptoms_menu"
+        name = "Symptoms"
+        parent = "menu_configuration_management"
+        action = "open_view_symptoms_menu_tree"
+        sequence="2"/>
+
+</odoo>

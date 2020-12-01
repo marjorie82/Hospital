@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Evaluation Tree View -->
+    <record id="view_evaluation_menu_tree" model="ir.ui.view">
+        <field name="name">patient.evaluation.tree</field>
+        <field name="model">patient.evaluation</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="doctor_id"/>
+                <field name="evaluation_start_date"/>
+                <field name="evaluation_end_date"/>
+                <field name="body_mass_index"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Evaluation Form View -->
+    <record id="view_evaluation_menu_form" model="ir.ui.view">
+        <field name="name">patient.evaluation.form</field>
+        <field name="model">patient.evaluation</field>
+        <field name="arch" type="xml">
+        <form string="Evaluation">
+        <sheet>
+            <div class="oe_button_box" name="button_box">
+                <button name="action_view_prescriptions"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-list-alt">
+                    <field name="prescription_count" widget="statinfo"/>
+                </button>
+            </div>
+            <div>
+                <group>
+                    <group>
+                        <field name="name" domain = "[('is_patient','=',True)]"/>
+                        <field name="evaluation_start_date"/>
+                        <field name="evaluation_end_date"/>
+                    </group>
+                    <group>
+                        <field name="doctor_id" domain = "[('is_physician','=',True)]"/>
+                        <field name="complaint"/>
+                    </group>
+                </group>
+            </div>
+            <div>
+                <group string = "Evaluation Summary">
+                    <field name="description" nolabel = "1"/>
+                </group>
+            </div>
+            <notebook>
+                <!--  Signs  -->
+                <page name="public" string="Signs">
+                    <div>
+                        <group string = "Anthropometry">
+                            <group>
+                                <field name="weight"/>
+                                <field name="body_mass_index" readonly = 'True'/>
+                            </group>
+                            <group>
+                                <field name="height"/>
+                            </group>
+                        </group>
+                    </div>
+                </page>
+                <!--  symptoms  -->
+                <page name="public" string="Symptoms">
+                    <div>
+                        <group>
+                            <group>
+                                <field name="symptoms_ids" widget = "many2many_tags"/>
+                            </group>
+                        </group>
+                    </div>
+                </page>
+                <!--  diagnosis  -->
+                <page name="public" string="Diagnosis">
+                    <group string = 'Information on Diagnosis'>
+                        <field name="information" nolabel = "1"/>
+                    </group>
+                    <group string = 'Treatment Plan'>
+                        <field name="treatment_plan" nolabel = "1"/>
+                    </group>
+                </page>
+            </notebook>
+        </sheet>
+        </form>
+        </field>
+    </record>
+
+    <record id="open_view_evaluation_menu_tree" model="ir.actions.act_window">
+        <field name="name">Evaluation</field>
+        <field name="res_model">patient.evaluation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_sub_evaluation_menu"
+        name = "Evaluation"
+        parent = "menu_physician_management"
+        action = "open_view_evaluation_menu_tree"
+        sequence="2"/>
+
+</odoo>

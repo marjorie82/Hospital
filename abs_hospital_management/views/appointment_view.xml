@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Appointment Tree View -->
+    <record id="view_appointment_menu_tree" model="ir.ui.view">
+        <field name="name">patient.appointment.tree</field>
+        <field name="model">patient.appointment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="doctor_id"/>
+                <field name="appointment_date"/>
+                <field name="health_centers"/>
+                <field name="invoice_amount"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Appointment Form View -->
+    <record id="view_appointment_menu_form" model="ir.ui.view">
+        <field name="name">patient.appointment.form</field>
+        <field name="model">patient.appointment</field>
+        <field name="arch" type="xml">
+        <form string="Appointment">
+        <header>
+            <button name="%(open_view_appointment_details_tree)d" type="action" string="Create Invoice" class="btn-primary" attrs = "{'invisible':[('invoice_exempt','=',True)]}"/>
+            <field name= "state" widget="statusbar" statusbar_visible="draft,invoiced"/>
+        </header>
+        <sheet>
+            <div class="oe_title">
+                <h1>
+                    <field name="name" nolabel="1" readonly = "True"/>
+                </h1>
+            </div>
+            <div>
+                <group>
+                    <group>
+                        <field name="patient_id" domain="[('is_patient','=', True)]"/>
+                        <field name="gender"/>
+                        <field name="dob"/>
+                        <field name="doctor_id" domain="[('is_physician','=', True)]"/>
+                        <field name="appointment_date"/>
+                        <field name="patient_status"/>
+                    </group>
+                    <group>
+                        <field name="marital_status"/>
+                        <field name="mobile"/>
+                        <field name="health_centers"/>
+                        <field name="urgency_level"/>
+                        <field name="invoice_exempt" readonly = "True"/>
+                        <field name="invoice_id"/>
+                    </group>
+                </group>
+            </div>
+            <div>
+                <group string = "Comment">
+                    <field name="description" nolabel = "1"/>
+                </group>
+            </div>
+        </sheet>
+        </form>
+        </field>
+    </record>
+
+    <!-- Appointment Calendar View -->
+    <record id="view_appointment_menu_calendar" model="ir.ui.view">
+        <field name="name">patient.appointment.calendar</field>
+        <field name="model">patient.appointment</field>
+        <field name="arch" type="xml">
+            <calendar string="Appointment" date_start="appointment_date" color="state">
+                <field name="patient_id"/>
+                <field name="doctor_id"/>
+            </calendar>
+        </field>
+    </record>
+
+        <!-- Appointment graph View -->
+        <record id="view_appointment_menu_graph" model="ir.ui.view">
+            <field name="name">patient.appointment.graph.view</field>
+            <field name="model">patient.appointment</field>
+            <field name="arch" type="xml">
+                <graph string="Appointment Analysis" type="bar">
+                    <field name="appointment_date" interval="week" type="row"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- Appointment pivot View -->
+        <record id="view_appointment_menu_pivot" model="ir.ui.view">
+            <field name="name">patient.appointment.pivot.view</field>
+            <field name="model">patient.appointment</field>
+            <field name="arch" type="xml">
+                <pivot string="Appointment Analysis" disable_linking="True">
+                    <field name="patient_id" type="row"/>
+                    <field name="appointment_date" interval="week" type="col"/>
+                    <field name="invoice_amount" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+    <record id="open_view_appointment_menu_tree" model="ir.actions.act_window">
+        <field name="name">Appointment</field>
+        <field name="res_model">patient.appointment</field>
+        <field name="view_mode">tree,form,calendar,pivot,graph</field>
+    </record>
+
+    <menuitem id="menu_appointments_management"
+        name = "Appointment"
+        parent = "healthcare_management"
+        sequence="1"/>
+
+    <menuitem id="menu_sub_appointment_menu"
+        name = "Appointments"
+        parent = "menu_appointments_management"
+        action = "open_view_appointment_menu_tree"
+        sequence="1"/>
+
+</odoo>

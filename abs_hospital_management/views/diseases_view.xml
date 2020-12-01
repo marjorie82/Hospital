@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Diseses Tree View -->
+    <record id="view_diseases_menu_tree" model="ir.ui.view">
+        <field name="name">diseases.diseases.tree</field>
+        <field name="model">diseases.diseases</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Diseses Form View -->
+    <record id="view_diseases_menu_form" model="ir.ui.view">
+        <field name="name">diseases.diseases.form</field>
+        <field name="model">diseases.diseases</field>
+        <field name="arch" type="xml">
+        <form string="Diseases">
+        <sheet>
+            <div>
+                <group>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </group>
+            </div>
+        </sheet>
+        </form>
+        </field>
+    </record>
+
+    <record id="open_view_diseases_menu_tree" model="ir.actions.act_window">
+        <field name="name">Diseases</field>
+        <field name="res_model">diseases.diseases</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_configuration_management"
+        name = "Configuration"
+        parent = "healthcare_management"
+        sequence="7"
+        groups = "abs_hospital_management.group_healthcare_manager"/>
+
+    <menuitem id="menu_sub_diseases_menu"
+        name = "Diseases"
+        parent = "menu_configuration_management"
+        action = "open_view_diseases_menu_tree"
+        sequence="1"/>
+
+</odoo>

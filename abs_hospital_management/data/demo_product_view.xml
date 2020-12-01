@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_appointment_id" model="product.product">
+            <field name="name">Charges of Appointment</field>
+            <field name="type">service</field>
+            <field name="default_code">Appointment</field>
+        </record>
+
+        <record id="product_lab_test_id" model="product.product">
+            <field name="name">Charges of Lab Test</field>
+            <field name="type">service</field>
+            <field name="default_code">Test</field>
+        </record>
+
+        <record id="product_prescription_id" model="product.product">
+            <field name="name">Charges of Medicine</field>
+            <field name="type">service</field>
+            <field name="default_code">Medicine</field>
+        </record>
+    </data>
+</odoo>

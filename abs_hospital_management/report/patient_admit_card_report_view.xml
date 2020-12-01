@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+      <record id="paperformat_patient_card" model="report.paperformat">
+          <field name="name">Patient Card</field>
+          <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">150</field>
+            <field name="page_width">165</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">30</field>
+            <field name="margin_bottom">30</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+      </record>
+
+      <report id="report_patient_admit_card"
+              string="Patient card"
+              model="res.partner"
+              report_type="qweb-pdf"
+              file="abs_hospital_management.report_admit_card_template"
+              name="abs_hospital_management.report_admit_card_template"
+              paperformat="abs_hospital_management.paperformat_patient_card"/>
+    </data>
+</odoo>

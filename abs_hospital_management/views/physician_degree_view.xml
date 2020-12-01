@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Physician Tree View -->
+    <record id="view_degree_menu_tree" model="ir.ui.view">
+        <field name="name">physician.degree.tree</field>
+        <field name="model">physician.degree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Physician Form View -->
+    <record id="view_degree_menu_form" model="ir.ui.view">
+        <field name="name">physician.degree.form</field>
+        <field name="model">physician.degree</field>
+        <field name="arch" type="xml">
+        <form string="Degree">
+        <sheet>
+            <div>
+                <group>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </group>
+            </div>
+        </sheet>
+        </form>
+        </field>
+    </record>
+
+    <record id="open_view_degree_menu_tree" model="ir.actions.act_window">
+        <field name="name">Degree</field>
+        <field name="res_model">physician.degree</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_sub_physician_degree_menu"
+        name = "Degree"
+        parent = "menu_configuration_management"
+        action = "open_view_degree_menu_tree"
+        sequence="3"/>
+
+</odoo>

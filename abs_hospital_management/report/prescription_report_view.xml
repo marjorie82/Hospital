@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+      <report id="report_patient_prescription"
+              string="Prescription Report"
+              model="patient.prescription"
+              report_type="qweb-pdf"
+              file="abs_hospital_management.report_patient_prescription_template"
+              name="abs_hospital_management.report_patient_prescription_template"/>
+    </data>
+</odoo>

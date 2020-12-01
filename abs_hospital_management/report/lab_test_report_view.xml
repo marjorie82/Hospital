@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+      <report id="report_patient_lab_test"
+              string="Lab Test Report"
+              model="patient.laboratory"
+              report_type="qweb-pdf"
+              file="abs_hospital_management.report_patient_lab_test_template"
+              name="abs_hospital_management.report_patient_lab_test_template"/>
+    </data>
+</odoo>

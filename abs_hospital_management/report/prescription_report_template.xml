@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+      <template id="report_patient_prescription_document">
+         <t t-call="web.external_layout">
+            <t t-set="doc" t-value="doc.with_context()"/>
+               <div class="page">
+
+	        <br/><br/><div align = "center" style="font-size: 20px;"><strong>Prescription Report</strong></div><br/><br/>
+	        <div>
+                   <table class="table" style="border-width:100%; border-collapse:separate;">
+                      <thead>
+                        <tr>
+                           <th class="text-left"  style="border:1px solid black; width:20%;">
+                             <span><strong>Prescription ID</strong></span>
+                           </th>
+                           <th class="text-left"  style="border:1px solid black; width:20%;">
+                             <span><strong>Prescription Date</strong></span>
+                           </th>
+                           <th class="text-left"  style="border:1px solid black; width:20%;">
+                             <span><strong>Prescribing Doctor</strong></span>
+                           </th>
+                           <th class="text-left"  style="border:1px solid black; width:20%;">
+                             <span><strong>Patient</strong></span>
+                           </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <t>
+                           <tr>
+                              <td class="text-left" style="border:1px solid black;">
+                                 <span t-field="doc.name"/><br/>
+                             </td>
+                             <td class="text-left" style="border:1px solid black;">
+                                <span t-field="doc.date"/><br/>
+                             </td>
+                             <td class="text-left" style="border:1px solid black;">
+                                <span t-field="doc.doctor_id"/><br/>
+                             </td>
+                             <td class="text-left" style="border:1px solid black;">
+                                <span t-field="doc.patient_id"/><br/>
+                                <span t-field="doc.patient_id.mobile"/>
+                             </td>
+                           </tr>
+                        </t>
+                      </tbody>
+                   </table>
+	        </div><br/><br/>
+
+	        <div align = "left" style="font-size: 15px;"><strong>Prescription Details</strong></div><br/>
+
+	        <div>
+                   <table class="table table-condensed" t-if="doc.medicine_ids">
+                      <thead>
+                        <tr>
+                           <th class="text-center"><span><strong>Medicaiment</strong></span></th>
+                           <th class="text-center"><span><strong>Quantity</strong></span></th>
+                           <th class="text-center"><span><strong>Substitution</strong></span></th>
+                           <th class="text-center"><span><strong>Dose</strong></span></th>
+                           <th class="text-center"><span><strong>Frequency</strong></span></th>
+                           <th class="text-center"><span><strong>Treatment Duration</strong></span></th>
+                           <th class="text-center"><span><strong>Comment</strong></span></th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                         <t t-foreach="doc.medicine_ids" t-as="medicine">
+                            <t t-if = "medicine">
+                               <tr>
+                                  <td class="text-center"><span t-field="medicine.medicicament_id"/></td>
+                                  <td class="text-center"><span t-field="medicine.quantity"/></td>
+                                  <td class="text-center"><span t-field="medicine.allow_substitution"/></td>
+                                  <td class="text-center"><span t-field="medicine.dose"/></td>
+                                  <td class="text-center"><span t-field="medicine.frequency"/></td>
+                                  <td class="text-center"><span t-field="medicine.treatment_duration"/></td>
+                                  <td class="text-center"><span t-field="medicine.comment"/></td>
+                               </tr>
+                            </t>
+                         </t>
+                      </tbody>
+                   </table>
+	        </div>
+
+               </div>
+            </t>
+      </template>
+
+      <template id="report_patient_prescription_template">
+         <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+               <t t-call="abs_hospital_management.report_patient_prescription_document"/>
+            </t>
+         </t>
+      </template>
+
+</odoo>

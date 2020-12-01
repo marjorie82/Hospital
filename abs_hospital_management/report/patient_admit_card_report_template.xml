@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+      <template id="report_admit_card_document">
+         <t t-call="web.external_layout">
+            <t t-set="doc" t-value="doc.with_context()"/>
+               <div class="page">
+	         <div class = "col-xs-12">
+	            <br/><div align = "center" style="font-size: 15px;">Patient Card</div><br/>
+                    <div class = "col-xs-3"></div>
+                    <div class = "col-xs-6">
+                       <table class="table" border="2px" style="border-width:100%;">
+                          <td  class="text-left" style="border:2px solid black;">
+                             <h5><span><strong>Patient ID: </strong></span> <span t-field="doc.patient_id"/><br/></h5>
+                             <h5><span><strong>Name: </strong></span> <span t-field="doc.name"/><br/></h5>
+                             <h5><span><strong>Gender: </strong></span> <span t-field="doc.gender"/><br/></h5>
+                             <h5><span><strong>Marital status: </strong></span> <span t-field="doc.marital_status"/><br/></h5>
+                             <h5><span><strong>Date of Birth: </strong></span> <span t-field="doc.dob"/><br/></h5>
+                             <h5><span><strong>Age: </strong></span> <span t-field="doc.age"/><br/></h5>
+                             <h5><span><strong>City: </strong></span> <span t-field="doc.city"/><br/></h5>
+                             <h5><span><strong>Address: </strong></span> <span t-field="doc.street"/><br/></h5>
+                             <h5><span><strong>Mobile: </strong></span> <span t-field="doc.mobile"/><br/></h5>
+                          </td>
+                       </table>
+                    </div>
+                    <div class = "col-xs-3"></div>
+	         </div>
+               </div>
+            </t>
+      </template>
+
+      <template id="report_admit_card_template">
+         <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+               <t t-call="abs_hospital_management.report_admit_card_document"/>
+            </t>
+         </t>
+      </template>
+</odoo>

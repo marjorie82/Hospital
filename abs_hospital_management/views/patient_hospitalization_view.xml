@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Patient Hospitalization Tree View -->
+    <record id="view_patient_hospitalization_menu_tree" model="ir.ui.view">
+        <field name="name">patient.hospitalization.tree</field>
+        <field name="model">patient.hospitalization</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="operating_doctor_id"/>
+                <field name="attending_doctor_id"/>
+                <field name="hospitalization_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Patient Hospitalization Form View -->
+    <record id="view_patient_hospitalization_menu_form" model="ir.ui.view">
+        <field name="name">patient.hospitalization.form</field>
+        <field name="model">patient.hospitalization</field>
+        <field name="arch" type="xml">
+        <form string="Patient Hospitalization">
+        <header>
+            <button name="action_confirm" type="object" string="Confirm Registration" class="btn-primary" state = "confirmed" attrs = "{'invisible':[('state','in',['hospitalized','confirmed','cancel','discharge'])]}"/>
+            <button name="action_cancel" type="object" string="Cancel Registration" state = "cancel" attrs = "{'invisible':[('state','in',['hospitalized','confirmed','cancel','discharge'])]}"/>
+            <button name="action_patient_admitted" type="object" class="btn-primary" string="Patient Admission" state = "hospitalized" attrs = "{'invisible':[('state','in',['hospitalized','free','cancel','discharge'])]}"/>
+            <button name="action_discharge_patient" type="object" string="Discharge Patient" class="btn-primary" state = "discharge" attrs = "{'invisible':[('state','in',['free','confirmed','cancel','discharge'])]}"/>
+            <field name= "state" widget="statusbar" statusbar_visible="free,confirmed,hospitalized,discharge"/>
+        </header>
+        <sheet>
+            <div class="oe_title">
+                <h1>
+                    <field name="name" nolabel="1" readonly = "1"/>
+                </h1>
+            </div>
+            <div>
+                <group string = 'Administrative Data'>
+                    <group>
+                        <field name="patient_id" domain="[('is_patient','=', True)]"/>
+                        <field name="hospital_bed"/>
+                        <field name="hospitalization_date"/>
+                        <field name="expected_discharge_date"/>
+                    </group>
+                    <group>
+                        <field name="attending_doctor_id" domain="[('is_physician','=', True)]"/>
+                        <field name="operating_doctor_id" domain="[('is_physician','=', True)]"/>
+                        <field name="admission_type"/>
+                        <field name="reason_for_admission"/>
+                    </group>
+                </group>
+            </div>
+            <div>
+                <group>
+                    <field name="description"/>
+                </group>
+            </div>
+        </sheet>
+        </form>
+        </field>
+    </record>
+
+    <record id="open_view_patient_hospitalization_menu_tree" model="ir.actions.act_window">
+        <field name="name">Patient Hospitalization</field>
+        <field name="res_model">patient.hospitalization</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_inpatient_administrative_management"
+        name = "Hospitalization"
+        parent = "healthcare_management"
+        sequence="3"/>
+
+    <menuitem id="menu_sub_patient_hospitialization_menu"
+        name = "Patient Hospitialization"
+        parent = "menu_inpatient_administrative_management"
+        action = "open_view_patient_hospitalization_menu_tree"
+        sequence="1"/>
+
+</odoo>

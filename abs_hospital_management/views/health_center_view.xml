@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Healthcenter Tree View -->
+    <record id="view_health_center_menu_tree" model="ir.ui.view">
+        <field name="name">health.center.tree</field>
+        <field name="model">health.center</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="email"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Healthcenter Form View -->
+    <record id="view_health_center_menu_form" model="ir.ui.view">
+        <field name="name">health.center.form</field>
+        <field name="model">health.center</field>
+        <field name="arch" type="xml">
+        <form string="Healthcare Center">
+        <sheet>
+            <div>
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="address"/>
+                        <field name="phone"/>
+                    </group>
+                    <group>
+                        <field name="email"/>
+                        <field name="website"/>
+                    </group>
+                </group>
+            </div>
+            <div>
+                <group string = "Extra Information">
+                    <field name="description" nolabel = "1"/>
+                </group>
+            </div>
+        </sheet>
+        </form>
+        </field>
+    </record>
+
+    <record id="open_view_health_center_menu_tree" model="ir.actions.act_window">
+        <field name="name">Healthcare Center</field>
+        <field name="res_model">health.center</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_sub_health_center_menu"
+        name = "Healthcare centers"
+        parent = "menu_configuration_management"
+        action = "open_view_health_center_menu_tree"
+        sequence="4"/>
+
+</odoo>

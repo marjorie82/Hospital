@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+      <report id="report_patient_evaluation"
+              string="Evaluation Report"
+              model="patient.evaluation"
+              report_type="qweb-pdf"
+              file="abs_hospital_management.report_patient_evaluation_template"
+              name="abs_hospital_management.report_patient_evaluation_template"/>
+    </data>
+</odoo>

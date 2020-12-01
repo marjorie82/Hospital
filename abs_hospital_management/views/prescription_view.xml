@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Prescription Tree View -->
+    <record id="view_prescription_menu_tree" model="ir.ui.view">
+        <field name="name">patient.prescription.tree</field>
+        <field name="model">patient.prescription</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="doctor_id"/>
+                <field name="date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Prescription Form View -->
+    <record id="view_prescription_menu_form" model="ir.ui.view">
+        <field name="name">patient.prescription.form</field>
+        <field name="model">patient.prescription</field>
+        <field name="arch" type="xml">
+        <form string="Prescription Order">
+        <header>
+            <button name="create_invoices" type="object" string="Create Invoice" class="btn-primary" attrs = "{'invisible':[('state','=','invoiced')]}"/>
+            <field name= "state" widget="statusbar" statusbar_visible="draft,invoiced"/>
+        </header>
+        <sheet>
+            <div class="oe_title">
+                <h1>
+                    <field name="name" nolabel="1" readonly = "True"/>
+                </h1>
+            </div>
+            <div>
+                <group string = "Patient and Doctor Information">
+                    <group>
+                        <field name="patient_id" domain="[('is_patient','=', True)]"/>
+                        <field name="date"/>
+                    </group>
+                    <group>
+                        <field name="doctor_id" domain="[('is_physician','=', True)]"/>
+                        <field name="invoice_id"/>
+                    </group>
+                </group>
+            </div>
+            <div>
+                <group string = "Prescription Detail">
+                    <field name ="medicine_ids" nolabel = "1">
+                        <tree editable = "bottom">
+                            <field name = "medicicament_id"/>
+                            <field name = "indication"/>
+                            <field name = "dose"/>
+                            <field name = "dose_unit"/>
+                            <field name = "form"/>
+                            <field name = "frequency"/>
+                            <field name = "quantity"/>
+                            <field name = "treatment_duration"/>
+                            <field name = "treatment_period"/>
+                            <field name = "allow_substitution"/>
+                            <field name = "comment"/>
+                        </tree>
+                    </field>
+                </group>
+            </div>
+            <div>
+                <group string = "Notes">
+                    <field name="description" nolabel = "1"/>
+                </group>
+            </div>
+        </sheet>
+        </form>
+        </field>
+    </record>
+
+    <record id="open_view_prescription_menu_tree" model="ir.actions.act_window">
+        <field name="name">Prescription Order</field>
+        <field name="res_model">patient.prescription</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_sub_prescription_menu"
+        name = "Prescriptions"
+        parent = "menu_patients_management"
+        action = "open_view_prescription_menu_tree"
+        sequence="3"/>
+
+</odoo>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Laboratory Tree View -->
+    <record id="view_lab_tests_result_menu_tree" model="ir.ui.view">
+        <field name="name">patient.laboratory.tree</field>
+        <field name="model">patient.laboratory</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="doctor_id"/>
+                <field name="date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Laboratory Form View -->
+    <record id="view_lab_tests_result_menu_form" model="ir.ui.view">
+        <field name="name">patient.laboratory.form</field>
+        <field name="model">patient.laboratory</field>
+        <field name="arch" type="xml">
+        <form string="Laboratory">
+        <header>
+            <button name="action_progress" type="object" string="In Progress" class="btn-primary" state = "inprogress" attrs = "{'invisible':[('state','in',['inprogress','complete','invoiced'])]}"/>
+            <button name="action_complete" type="object" string="Completed" class="btn-primary" state = "complete" attrs = "{'invisible':[('state','in',['complete','draft','invoiced'])]}"/>
+            <button name="%(open_view_lab_test_invoice_details_tree)d" type="action" string="Create Invoice" class="btn-primary" attrs = "{'invisible':[('state','in',['inprogress','draft','invoiced'])]}"/>
+            <button name="action_lab_test_send" type="object" string="Send by Email" class="btn-primary"/>
+            <field name= "state" widget="statusbar" statusbar_visible="draft,inprogress,complete,invoiced"/>
+        </header>
+        <sheet>
+            <div class="oe_title">
+                <h1>
+                    <field name="name" nolabel="1" readonly = "True"/>
+                </h1>
+            </div>
+            <div>
+                <group string = "Main Info">
+                    <group>
+                        <field name="patient_id" domain="[('is_patient','=', True)]"/>
+                        <field name="doctor_id" domain="[('is_physician','=', True)]"/>
+                    </group>
+                    <group>
+                        <field name="date"/>
+                        <field name="test_type"/>
+                    </group>
+                </group>
+            </div>
+            <div>
+                <group string = "Total Cases">
+                    <field name ="lab_test_ids" nolabel = "1">
+                        <tree editable = "bottom">
+                            <field name = "test_id"/>
+                            <field name = "result_range"/>
+                            <field name = "normal_range"/>
+                        </tree>
+                    </field>
+                </group>
+            </div>
+            <div>
+                <group string = "Extra Info">
+                    <field name="results"/>
+                    <field name="diagnosis"/>
+                </group>
+            </div>
+        </sheet>
+        </form>
+        </field>
+    </record>
+
+    <record id="open_view_lab_tests_result_menu_tree" model="ir.actions.act_window">
+        <field name="name">Laboratory</field>
+        <field name="res_model">patient.laboratory</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_patient_laboratory_management"
+        name = "Laboratory"
+        parent = "healthcare_management"
+        sequence="5"/>
+
+    <menuitem id="menu_sub_lab_tests_result_menu"
+        name = "Lab Tests Results"
+        parent = "menu_patient_laboratory_management"
+        action = "open_view_lab_tests_result_menu_tree"
+        sequence="1"/>
+
+</odoo>

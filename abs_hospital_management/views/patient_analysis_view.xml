@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- dashboard action -->
+        <record id="action_res_partner_dashboard" model="ir.actions.act_window">
+            <field name="name">Patient Analysis</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">dashboard,pivot,graph</field>
+            <field name="domain">[('is_patient','=',True)]</field>
+        </record>
+
+        <record id="action_view_res_partner_menu_dashboard" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">dashboard</field>
+            <field name="view_id" ref="abs_hospital_management.view_res_partner_menu_dashboard"/>
+            <field name="act_window_id" ref="abs_hospital_management.action_res_partner_dashboard"/>
+        </record>
+
+        <record id="action_view_res_partner_menu_pivot" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">pivot</field>
+            <field name="view_id" ref="abs_hospital_management.view_res_partner_menu_pivot"/>
+            <field name="act_window_id" ref="abs_hospital_management.action_res_partner_dashboard"/>
+        </record>
+
+        <record id="action_view_res_partner_menu_graph" model="ir.actions.act_window.view">
+            <field name="sequence" eval="3"/>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="abs_hospital_management.view_res_partner_menu_graph"/>
+            <field name="act_window_id" ref="abs_hospital_management.action_res_partner_dashboard"/>
+        </record>
+
+        <!-- menuitem -->
+        <menuitem id="menu_patient_analysis_report"
+                  name = "Reporting"
+                  parent = "healthcare_management"
+                  action="action_res_partner_dashboard"
+                  groups = "abs_hospital_management.group_healthcare_manager"
+                  sequence="6"/>
+
+    </data>
+</odoo>

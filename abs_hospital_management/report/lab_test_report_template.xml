@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+      <template id="report_patient_lab_test_document">
+         <t t-call="web.external_layout">
+            <t t-set="doc" t-value="doc.with_context()"/>
+               <div class="page">
+
+	        <br/><br/><div align = "center" style="font-size: 20px;"><strong>Lab Test Report</strong></div><br/><br/>
+	        <div>
+                   <table class="table" style="border-width:100%; border-collapse:separate;">
+                      <thead>
+                        <tr>
+                           <th class="text-left"  style="border:1px solid black; width:20%;">
+                             <span><strong>Patient</strong></span>
+                           </th>
+                           <th class="text-left"  style="border:1px solid black; width:20%;">
+                             <span><strong>Doctor</strong></span>
+                           </th>
+                           <th class="text-left"  style="border:1px solid black; width:20%;">
+                             <span><strong>Date of Analysis</strong></span>
+                           </th>
+                           <th class="text-left"  style="border:1px solid black; width:20%;">
+                             <span><strong>Test Type</strong></span>
+                           </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <t>
+                           <tr>
+                              <td class="text-left" style="border:1px solid black;">
+                                 <span t-field="doc.patient_id"/><br/>
+                             </td>
+                             <td class="text-left" style="border:1px solid black;">
+                                <span t-field="doc.doctor_id"/><br/>
+                             </td>
+                             <td class="text-left" style="border:1px solid black;">
+                                <span t-field="doc.date"/><br/>
+                             </td>
+                             <td class="text-left" style="border:1px solid black;">
+                                <span t-field="doc.test_type"/>
+                             </td>
+                           </tr>
+                        </t>
+                      </tbody>
+                   </table>
+	        </div><br/><br/>
+
+	        <div align = "left" style="font-size: 15px;"><strong>Lab Test Details</strong></div><br/>
+
+	        <div>
+                   <table class="table table-condensed" t-if="doc.lab_test_ids">
+                      <thead>
+                        <tr>
+                           <th class="text-center"><span><strong>Test Name</strong></span></th>
+                           <th class="text-center"><span><strong>Result Range</strong></span></th>
+                           <th class="text-center"><span><strong>Normal Range</strong></span></th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                         <t t-foreach="doc.lab_test_ids" t-as="test">
+                            <t t-if = "test">
+                               <tr>
+                                  <td class="text-center"><span t-field="test.test_id"/></td>
+                                  <td class="text-center"><span t-field="test.result_range"/></td>
+                                  <td class="text-center"><span t-field="test.normal_range"/></td>
+                               </tr>
+                            </t>
+                         </t>
+                      </tbody>
+                   </table>
+	        </div><br/>
+
+	        <div>
+                   <div align = "left" style="font-size: 15px;"><strong>Result</strong></div>
+	              <t t-if = "doc.results">
+	                 <span t-field="doc.results"/><br/>
+                      </t>
+                </div><br/><br/>
+
+	        <div>
+                   <div align = "left" style="font-size: 15px;"><strong>Dignosis</strong></div>
+	              <t t-if = "doc.diagnosis">
+	                 <span t-field="doc.diagnosis"/><br/>
+                      </t>
+                </div>
+
+               </div>
+            </t>
+      </template>
+
+      <template id="report_patient_lab_test_template">
+         <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+               <t t-call="abs_hospital_management.report_patient_lab_test_document"/>
+            </t>
+         </t>
+      </template>
+
+</odoo>
